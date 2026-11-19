@@ -11,17 +11,14 @@ only *borrows* values from it (every borrowed value is commented inline in
 `BoardConfig.mk` and was re-verified against stock `A127FXXSDDXJ5` evidence in
 `~/rom/{dump,stock,logs}`).
 
-## Status (end of Phase 2)
+## Status
 
-| check | result |
-|---|---|
-| `breakfast a12s` | **RC=0**, `TARGET_PRODUCT=lineage_a12s`, `TARGET_BUILD_VARIANT=userdebug`, `LINEAGE_VERSION=23.2-20261027-UNOFFICIAL-a12s` (`~/rom/logs/breakfast_a12s_final2.log`) |
-| `m nothing` | **RC=0**, "build completed successfully" (`~/rom/logs/m_nothing_a12s_20.log`) |
-| blobs | 342 in `vendor/samsung/a12s` (own git repo), all from the stock dump copy, never the phone |
-| unresolved proprietary NEEDED | 0 (everything not in the vendor repo is provided by the source build — see `~/rom/logs/hal_compatibility_table.md`) |
+Earlier session on another host got `breakfast a12s` and `m nothing` to return 0
+(logs under `~/rom/logs/` on that machine — not re-run here). 342 blobs live in
+`vendor/samsung/a12s`, taken from a stock dump, never from the phone over adb.
 
-No image has ever been built or flashed in Phase 2 (brief item 7: `m nothing`
-only).
+Nothing has been flashed as LineageOS 23.2. Treat the tree as untested until
+someone boots it.
 
 ## Layout
 
