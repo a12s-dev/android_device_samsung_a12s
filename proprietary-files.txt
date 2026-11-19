@@ -75,16 +75,14 @@ vendor/firmware/tsp_novatek/nt36525_a12s_mp_sharp.bin|fc57026edfff96f10a577b5dd1
 vendor/firmware/tsp_novatek/nt36525_a12s_sharp.bin|5f90be7c1ed44121143402200ff8acb857f801b9
 
 # HAL services and implementations (stock hals.txt)
-# Stock's lazy CAS service. The module name gets a suffix because AOSP also
-# has a source module android.hardware.cas@1.2-service-lazy
-# (hardware/interfaces/cas/1.2/default); sharing that name drags the source
-# module into fsgen's vendor image deps (PRODUCT_PACKAGES name match), which
-# both double-installs vendor/bin/hw/android.hardware.cas@1.2-service-lazy
-# and, via the source module's 'overrides: android.hardware.cas@1.2-service',
-# puts the 32-bit-only non-lazy module into the image's overridden_deps, where
-# fsgen resolves it against the 64-bit target and fails with
-# "missing variant: arch:arm64_armv8-a". Install path (stem) is unchanged.
-vendor/bin/hw/android.hardware.cas@1.2-service-lazy;MODULE_SUFFIX=_samsung
+# Stock's lazy CAS service. EXTRACT_ONLY: no soong module. Installed at the
+# stock path via PRODUCT_COPY_FILES in a12s-vendor.mk. AOSP's own
+# android.hardware.cas@1.2-service-lazy is NOT in PRODUCT_PACKAGES (only the
+# non-lazy android.hardware.cas@1.2-service is, and that is disabled by
+# TARGET_REQUIRES_HIDL_CAS_HAL := false). A soong prebuilt with
+# stem: <same path> made fsgen resolve the name to our 32-bit module and ask
+# for an arm64 variant it does not have.
+vendor/bin/hw/android.hardware.cas@1.2-service-lazy;EXTRACT_ONLY
 # Stock audio HAL server (32-bit, 11 KB): registers IDevicesFactory@4.0-7.1 and
 # vendor.samsung.hardware.audio@1.0::ISehDevicesFactory, and creates the
 # BluetoothAudioProviderFactory (android.hardware.bluetooth.audio@2.0/2.1/2.2
