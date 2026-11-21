@@ -34,8 +34,13 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 ## VINTF
-# a12s-only Samsung HALs served by shipped stock services that the shared
-# hardware/samsung framework compatibility matrix does not declare. Appended to
-# the common tree's DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE (m12-common).
+# a12s-only device manifest fragments and framework compatibility matrix:
+#  * android.hardware.cas@1.2-service-lazy.xml declares the stock lazy CAS
+#    service the a12s vendor tree installs; the AOSP non-lazy service is
+#    disabled in lineage_a12s.mk (TARGET_REQUIRES_HIDL_CAS_HAL := false), and
+#    android.hardware.cas@1.2 is required by the level-6 FCM.
+#  * a12s_framework_compatibility_matrix.xml covers the 6 Samsung HALs served by
+#    shipped stock services that the shared hardware/samsung matrix omits.
+DEVICE_MANIFEST_FILE += $(wildcard $(DEVICE_PATH)/vintf/manifest/*.xml)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(DEVICE_PATH)/vintf/a12s_framework_compatibility_matrix.xml
