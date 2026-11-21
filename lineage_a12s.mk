@@ -38,3 +38,8 @@ PRODUCT_MANUFACTURER := samsung
 PRODUCT_SHIPPING_API_LEVEL := 30
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
+
+# The 4.19.148 kernel does not meet the FCM level 6 minimum LTS (4.19.325), so
+# do not enforce kernel version requirements in the OTA; the platform still
+# checks the device manifest target level normally.
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false

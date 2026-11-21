@@ -23,12 +23,22 @@ BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 5678039040
 
 ## Kernel
 TARGET_KERNEL_CONFIG := a12s_defconfig
+# Build the kernel with the clang 12 prebuilt under prebuilts/clang/kernel.
+# The AOSP host clang (18+) produces an Image that never boots on this device;
+# the same source built with this clang 12 prebuilt boots Android 16 userspace.
+TARGET_KERNEL_CLANG_VERSION := r416183b
+# drivers/gpu/arm/Kconfig picks the Mali DDK version from the $(PLATFORM_VERSION)
+# Kconfig env var; without it the Kconfig fails to parse.
+TARGET_KERNEL_ADDITIONAL_FLAGS := PLATFORM_VERSION=13 ANDROID_MAJOR_VERSION=t LLVM_IAS=0
 
 ## OTA
 TARGET_OTA_ASSERT_DEVICE := a12s
 
 ## Properties
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+
+## USB
+$(call soong_config_set,samsungUsbGadgetVars,gadget_name,13600000.dwc3)
 
 ## SELinux
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
