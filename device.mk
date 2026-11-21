@@ -32,7 +32,8 @@ PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
 
 # Init
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc
+    $(DEVICE_PATH)/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc \
+    $(DEVICE_PATH)/configs/init/kmlog.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/kmlog.rc
 
 # Shims for stock blobs against lineage-23.2 platform libs (mirrors the
 # proven reference tree; supplied by the a12s vendor's shared_libs)

@@ -1,0 +1,10 @@
+# Bring-up helper: mirror the full Android log into the kernel log so it can be
+# read from /proc/last_kmsg after a failed boot. Remove before production.
+service kmlog /system/bin/logcat -b all -v threadtime -v usec
+    user root
+    group root log
+    seclabel u:r:logcatd:s0
+    stdio_to_kmsg
+
+on fs
+    start kmlog
