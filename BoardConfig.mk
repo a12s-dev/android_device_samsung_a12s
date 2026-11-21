@@ -11,9 +11,6 @@ include vendor/samsung/a12s/BoardConfigVendor.mk
 
 DEVICE_PATH := device/samsung/a12s
 
-## APEX image
-DEXPREOPT_GENERATE_APEX_IMAGE := true
-
 ## Display
 TARGET_SCREEN_DENSITY := 300
 
@@ -35,3 +32,10 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 ## SELinux
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+
+## VINTF
+# a12s-only Samsung HALs served by shipped stock services that the shared
+# hardware/samsung framework compatibility matrix does not declare. Appended to
+# the common tree's DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE (m12-common).
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/vintf/a12s_framework_compatibility_matrix.xml
