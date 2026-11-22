@@ -26,6 +26,10 @@ $(call inherit-product, device/samsung/a12s/device.mk)
 TARGET_SCREEN_HEIGHT := 1600
 TARGET_SCREEN_WIDTH := 720
 
+# bring-up diagnostics: insecure adb so adbd starts at boot for live logging
+# (makes ro.adb.secure=0 and keeps ro.debuggable=1 on userdebug)
+WITH_ADB_INSECURE := true
+
 ## Inherit some common LineageOS stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
