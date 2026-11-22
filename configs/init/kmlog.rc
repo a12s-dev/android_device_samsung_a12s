@@ -1,10 +1,20 @@
-# Bring-up helper: mirror the full Android log into the kernel log so it can be
-# read from /proc/last_kmsg after a failed boot. Remove before production.
-service kmlog /system/bin/logcat -b all -v threadtime -v usec
+# Bring-up only. netd aborts right after start on this port; mirror its
+# stderr into the kernel log so the abort message lands in /proc/last_kmsg.
+# Remove this override before release.
+service netd /system/bin/netd
+    class main
+    capabilities CHOWN DAC_OVERRIDE DAC_READ_SEARCH FOWNER IPC_LOCK KILL NET_ADMIN NET_BIND_SERVICE NET_RAW SETUID SETGID
     user root
-    group root log
-    seclabel u:r:logcatd:s0
+    group root net_admin
+    rlimit memlock 1073741824 1073741824
+    socket dnsproxyd stream 0660 root inet
+    socket mdns stream 0660 root system
+    socket fwmarkd stream 0660 root inet
+    onrestart restart zygote
+    onrestart restart zygote_secondary
+    updatable
     stdio_to_kmsg
+    override
 
-on fs
-    start kmlog
+on post-fs-data
+    exec - root root -- /system/bin/sh -c "dmesg > /cache/kmsg_postfs.txt 2>&1"
