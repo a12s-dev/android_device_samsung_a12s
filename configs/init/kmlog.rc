@@ -22,8 +22,16 @@ on post-fs-data
 # bring-up: persist the userspace log to /cache (unencrypted, survives a hang)
 on post-fs
     start bootlog
+    start bootsync
 service bootlog /system/bin/logcat -b all -v threadtime -f /cache/bootlog.txt -r 4096 -n 4
     user root
     group root log
+    disabled
+    oneshot
+
+# bring-up: flush logs to disk periodically so a panic keeps them
+service bootsync /system/bin/sh -c "while true; do sleep 15; sync; done"
+    user root
+    group root
     disabled
     oneshot
