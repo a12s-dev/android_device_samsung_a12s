@@ -18,3 +18,12 @@ service netd /system/bin/netd
 
 on post-fs-data
     exec - root root -- /system/bin/sh -c "dmesg > /cache/kmsg_postfs.txt 2>&1"
+
+# bring-up: persist the userspace log to /cache (unencrypted, survives a hang)
+on post-fs
+    start bootlog
+service bootlog /system/bin/logcat -b all -v threadtime -f /cache/bootlog.txt -r 4096 -n 4
+    user root
+    group root log
+    disabled
+    oneshot
