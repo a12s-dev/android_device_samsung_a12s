@@ -23,6 +23,7 @@ DEVICE_PATH := device/samsung/a12s
 
 ## OTA TARGET
 TARGET_OTA_ASSERT_DEVICE := a12s
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
 ## Kernel
 TARGET_KERNEL_CONFIG := exynos850-a21snsxx_defconfig
