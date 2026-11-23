@@ -1,2 +1,0 @@
-# Samsung
-vendor.samsung.hardware.gnss::ISehGnss                  u:object_r:hal_gnss_hwservice:s0
