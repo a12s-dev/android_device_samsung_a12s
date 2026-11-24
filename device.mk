@@ -15,6 +15,12 @@
 #
 
 # Inherit from the common tree
+# Bring-up only: fstab without /data encryption. Must precede the a21s-common
+# inherit so the first PRODUCT_COPY_FILES entry for each destination wins.
+PRODUCT_COPY_FILES += \
+    device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos850 \
+    device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos850
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 # Setup dalvik vm configs

@@ -1,20 +1,19 @@
-# Bring-up only. Force insecure adb + verbose kernel log + periodic log dumps.
-on early-init
-    setprop ro.adb.secure 0
-
 on init
-    setprop persist.sys.usb.config adb
-    setprop sys.usb.config adb
+    mkdir /metadata/bringup 0777 root root
+    start a12s_dmesg
 
-on boot
-    start adbd
-    write /sys/fs/selinux/enforce 0
-    write /proc/sys/kernel/printk 8
-    mkdir /cache/bringup 0777 root root
-    start a12s_logdump
+on post-fs
+    start a12s_logcat
 
-service a12s_logdump /system/bin/sh /system/etc/a12s_logdump.sh
-    class main
+service a12s_dmesg /system/bin/sh -c "mv -f /metadata/bringup/dmesg.txt /metadata/bringup/dmesg.prev.txt; exec /system/bin/dmesg -w > /metadata/bringup/dmesg.txt 2>&1"
     user root
-    group root log
+    group root
+    seclabel u:r:su:s0
+    disabled
     oneshot
+
+service a12s_logcat /system/bin/logcat -b all -v threadtime -f /metadata/bringup/logcat.txt -r 1024 -n 2
+    user root
+    group log
+    seclabel u:r:su:s0
+    disabled
