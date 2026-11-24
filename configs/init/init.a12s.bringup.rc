@@ -1,4 +1,4 @@
-# Bring-up only. Force insecure adb + verbose kernel log + logs on /cache.
+# Bring-up only. Force insecure adb + verbose kernel log + logs to pstore/data.
 on early-init
     setprop ro.adb.secure 0
 
@@ -16,6 +16,8 @@ on post-fs
 
 on property:sys.boot_completed=1
     start a12s_logcat
+    start a12s_logdump_kmsg
+    start a12s_logdump_data
 
 service a12s_dmesg /system/bin/sh -c "exec /system/bin/dmesg -w > /cache/bringup/dmesg.txt 2>&1"
     user root
@@ -27,3 +29,15 @@ service a12s_logcat /system/bin/logcat -b all -v threadtime -f /cache/bringup/lo
     user root
     group log
     disabled
+
+service a12s_logdump_kmsg /system/bin/sh -c "logcat -b all -d -v threadtime > /dev/kmsg 2>&1; echo A12S_LOGCAT_END > /dev/kmsg"
+    user root
+    group root log
+    disabled
+    oneshot
+
+service a12s_logdump_data /system/bin/sh -c "logcat -b all -d -v threadtime > /data/bringup_logcat.txt 2>&1; dmesg > /data/bringup_dmesg.txt 2>&1"
+    user root
+    group root log
+    disabled
+    oneshot
