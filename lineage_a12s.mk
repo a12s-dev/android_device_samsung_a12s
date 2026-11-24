@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+## Bring-up only (rom22): insecure adb so adbd accepts without an authorised key.
+WITH_ADB_INSECURE := true
+
 ## Inherit from generic products, most specific first
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)

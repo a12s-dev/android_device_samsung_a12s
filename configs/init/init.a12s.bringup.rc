@@ -1,0 +1,20 @@
+# Bring-up only. Keeps kernel and Android logs on /cache so recovery can pull them.
+on post-fs
+    mkdir /cache/bringup 0777 root root
+    start a12s_dmesg
+
+on post-fs-data
+    start a12s_logcat
+
+service a12s_dmesg /system/bin/sh -c "mv -f /cache/bringup/dmesg.txt /cache/bringup/dmesg.prev.txt; exec /system/bin/dmesg -w > /cache/bringup/dmesg.txt 2>&1"
+    user root
+    group root
+    seclabel u:r:su:s0
+    disabled
+    oneshot
+
+service a12s_logcat /system/bin/logcat -b all -v threadtime -f /cache/bringup/logcat.txt -r 4096 -n 4
+    user root
+    group root log
+    seclabel u:r:su:s0
+    disabled

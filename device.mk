@@ -25,3 +25,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 # through configs/nfc and the a21s device vendor makefile
 # (vendor/samsung/a21s/a21s-vendor.mk) installs NFC firmware only, so neither
 # is inherited for a12s.
+
+# Bring-up only (rom22): write kernel/Android logs to /cache for recovery pull.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.bringup.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.bringup.rc
