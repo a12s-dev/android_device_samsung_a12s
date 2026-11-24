@@ -1,4 +1,4 @@
-# Bring-up only. Force insecure adb + verbose kernel log + logs to pstore/data.
+# Bring-up only. Force insecure adb + verbose kernel log + periodic log dumps.
 on early-init
     setprop ro.adb.secure 0
 
@@ -8,36 +8,13 @@ on init
 
 on boot
     start adbd
+    write /sys/fs/selinux/enforce 0
     write /proc/sys/kernel/printk 8
-
-on post-fs
     mkdir /cache/bringup 0777 root root
-    start a12s_dmesg
+    start a12s_logdump
 
-on property:sys.boot_completed=1
-    start a12s_logcat
-    start a12s_logdump_kmsg
-    start a12s_logdump_data
-
-service a12s_dmesg /system/bin/sh -c "exec /system/bin/dmesg -w > /cache/bringup/dmesg.txt 2>&1"
-    user root
-    group root
-    disabled
-    oneshot
-
-service a12s_logcat /system/bin/logcat -b all -v threadtime -f /cache/bringup/logcat.txt -r 4096 -n 4
-    user root
-    group log
-    disabled
-
-service a12s_logdump_kmsg /system/bin/sh -c "logcat -b all -d -v threadtime > /dev/kmsg 2>&1; echo A12S_LOGCAT_END > /dev/kmsg"
+service a12s_logdump /system/bin/sh /system/etc/a12s_logdump.sh
+    class main
     user root
     group root log
-    disabled
-    oneshot
-
-service a12s_logdump_data /system/bin/sh -c "logcat -b all -d -v threadtime > /data/bringup_logcat.txt 2>&1; dmesg > /data/bringup_dmesg.txt 2>&1"
-    user root
-    group root log
-    disabled
     oneshot

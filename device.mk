@@ -28,3 +28,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # Bring-up only (rom22): write kernel/Android logs to /cache for recovery pull.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.bringup.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.bringup.rc
+
+# Bring-up only: periodic log dumper script.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/a12s_logdump.sh:/system/etc/a12s_logdump.sh
