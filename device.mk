@@ -20,10 +20,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/teegris.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/teegris.rc \
     device/samsung/a12s/configs/init/pa_daemon_teegris.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/pa_daemon_teegris.rc \
     device/samsung/a12s/configs/init/vaultkeeper_common.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vaultkeeper_common.rc \
-    device/samsung/a12s/tee/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service:$(TARGET_COPY_OUT_VENDOR)/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service \
-    device/samsung/a12s/tee/bin/vendor.samsung.hardware.security.proca@2.0-service:$(TARGET_COPY_OUT_VENDOR)/bin/vendor.samsung.hardware.security.proca@2.0-service \
-    device/samsung/a12s/tee/lib64/vendor.samsung.hardware.security.vaultkeeper@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.samsung.hardware.security.vaultkeeper@2.0.so \
-    device/samsung/a12s/tee/lib64/hw/android.hardware.gatekeeper@1.0-impl.so:$(TARGET_COPY_OUT_VENDOR)/lib64/hw/android.hardware.gatekeeper@1.0-impl.so \
     device/samsung/a12s/tee/tee/00000000-0000-0000-0000-564c544b5052:$(TARGET_COPY_OUT_VENDOR)/tee/00000000-0000-0000-0000-564c544b5052 \
     device/samsung/a12s/tee/tee/00000000-0000-0000-0000-474154454b45:$(TARGET_COPY_OUT_VENDOR)/tee/00000000-0000-0000-0000-474154454b45 \
     device/samsung/a12s/tee/tee/00000000-0000-0000-0000-000048444350:$(TARGET_COPY_OUT_VENDOR)/tee/00000000-0000-0000-0000-000048444350 \
@@ -53,6 +49,11 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/teegris_v4.rc:$(TARGET_CO
 PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos850 \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos850
+
+PRODUCT_PACKAGES += \
+    vendor.samsung.hardware.security.proca@2.0-service \
+    vendor.samsung.hardware.security.vaultkeeper@2.0-service \
+    vendor.samsung.hardware.security.vaultkeeper@2.0
 
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 

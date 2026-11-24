@@ -1,0 +1,80 @@
+//
+// Copyright (C) 2025 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+// Bring-up only: A12 TEE userspace that the a21s vendor does not ship, as
+// proper Soong prebuilts (PRODUCT_COPY_FILES rejects ELF files). Definition
+// mirrors the A12 vendor's Android.bp so shared_libs match the prebuilts.
+//
+
+cc_prebuilt_binary {
+    name: "vendor.samsung.hardware.security.proca@2.0-service",
+    owner: "samsung",
+    vendor: true,
+    srcs: [
+        "tee/bin/vendor.samsung.hardware.security.proca@2.0-service",
+    ],
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libteecl",
+        "liblog",
+        "libutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.samsung.hardware.security.vaultkeeper@2.0",
+    owner: "samsung",
+    vendor: true,
+    srcs: [
+        "tee/lib64/vendor.samsung.hardware.security.vaultkeeper@2.0.so",
+    ],
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+}
+
+cc_prebuilt_binary {
+    name: "vendor.samsung.hardware.security.vaultkeeper@2.0-service",
+    owner: "samsung",
+    vendor: true,
+    srcs: [
+        "tee/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service",
+    ],
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "liblog",
+        "libbase",
+        "libutils",
+        "libhardware",
+        "libhidlbase",
+        "vendor.samsung.hardware.security.vaultkeeper@2.0",
+        "libvkmanager_vendor",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+}
