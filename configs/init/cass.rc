@@ -1,0 +1,9 @@
+# CASS depends on a running VaultKeeper. VaultKeeper cannot work on a12s (the
+# TA needs the absent PA component, see vaultkeeper_common.rc), so cass only
+# restart-loops. RIL works without it, so do not start it.
+service cass /vendor/bin/cass
+    class core
+    user system
+    group radio wakelock system
+    capabilities BLOCK_SUSPEND
+    disabled

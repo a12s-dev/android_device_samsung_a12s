@@ -12,7 +12,11 @@ service vaultkeeper_hal /vendor/bin/vendor.samsung.hardware.security.vaultkeeper
     disabled
 
 on late-fs
-    # vaultkeeper
+    # The A12 VaultKeeper TA needs the PA provisioning component, which is
+    # absent on this unit: the TA returns -30032 ("VaultKeeper is closed today",
+    # PA_TZ_LIB: Communication with PA is failed), so vaultkeeperd never gets a
+    # VK ID and simply restart-loops, spamming TEE (TZ_ICCC/SCrypto) and forcing
+    # cass to respawn. Aligning every vaultkeeper file to A12 A127FXXSDDXJ5 did
+    # not help (the failure is TA-side). So do not start them.
+    # Verified: SIM/voice/data/SMS all work with cass + vaultkeeper stopped.
     mkdir /dev/socket/vaultkeeper 0770 system system
-    start vaultkeeper
-    start vaultkeeper_hal

@@ -58,6 +58,11 @@ PRODUCT_PACKAGES += \
 # Bring-up only (rom29): software KeyMint until the TEE keymaster works.
 PRODUCT_PACKAGES += android.hardware.security.keymint-service
 
+# Bring-up only (rom36c): disable cass (VaultKeeper TA needs the absent PA
+# component, see configs/init/vaultkeeper_common.rc). Must precede the
+# a21s-common inherit so this cass.rc wins over a21s-common's.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/cass.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/cass.rc
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 
@@ -78,5 +83,3 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.bringup.rc:$(TA
 ## Device overlays (win over a21s-common for user-visible values)
 DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
 
-## A12 vaultkeeper dependency (vaultkeeperd NEEDED)
-PRODUCT_COPY_FILES += \
