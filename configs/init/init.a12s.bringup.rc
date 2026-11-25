@@ -1,23 +1,5 @@
 on init
     exec u:r:su:s0 root root -- /system/bin/setenforce 0
-    mkdir /metadata/bringup 0777 root root
-    start a12s_dmesg
-
-on post-fs
-    start a12s_logcat
-
-service a12s_dmesg /system/bin/sh -c "mv -f /metadata/bringup/dmesg.txt /metadata/bringup/dmesg.prev.txt; exec /system/bin/dmesg -w > /metadata/bringup/dmesg.txt 2>&1"
-    user root
-    group root
-    seclabel u:r:su:s0
-    disabled
-    oneshot
-
-service a12s_logcat /system/bin/logcat -b all -v threadtime -f /metadata/bringup/logcat.txt -r 1024 -n 2
-    user root
-    group log
-    seclabel u:r:su:s0
-    disabled
 
 on boot
     chmod 0660 /dev/goodix_fp

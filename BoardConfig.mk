@@ -43,6 +43,6 @@ BOARD_DTBO_CFG := $(DEVICE_PATH)/configs/kernel/a12s.cfg
 ## Properties
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
-## Bring-up only (rom22): forced permissive SELinux + devkmsg, for log capture.
-## Remove once display/adb bring-up is confirmed.
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive printk.devkmsg=on
+## Bring-up only: forced permissive SELinux, still needed to capture logs.
+## Remove this (and go enforcing) once bring-up is confirmed.
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive

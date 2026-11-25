@@ -5,3 +5,6 @@ persist.radio.multisim.config=dsds
 
 ## Fingerprint
 ro.vendor.fingerprint.type=side
+
+## Recovery: keep the recovery in sync with the ROM (same kernel)
+persist.vendor.recovery_update=true
