@@ -77,3 +77,7 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.bringup.rc:$(TA
 
 ## Device overlays (win over a21s-common for user-visible values)
 DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
+
+## A12 vaultkeeper dependency (vaultkeeperd NEEDED)
+PRODUCT_COPY_FILES += \
+    vendor/samsung/a21s-common/proprietary/vendor/lib64/libdsms_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdsms_vendor.so
