@@ -8,3 +8,6 @@ ro.vendor.fingerprint.type=side
 
 ## Recovery: keep the recovery in sync with the ROM (same kernel)
 persist.vendor.recovery_update=true
+
+## Bluetooth name
+bluetooth.device.default_name=Galaxy A12

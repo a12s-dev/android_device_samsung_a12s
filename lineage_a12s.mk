@@ -30,6 +30,9 @@ $(call inherit-product, device/samsung/a12s/device.mk)
 TARGET_SCREEN_HEIGHT := 1600
 TARGET_SCREEN_WIDTH := 720
 
+## Unofficial build id, shows in the version and zip name
+TARGET_UNOFFICIAL_BUILD_ID := varifocal
+
 ## Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
@@ -39,6 +42,6 @@ PRODUCT_NAME := lineage_a12s
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-A127F
 PRODUCT_MANUFACTURER := samsung
-PRODUCT_SHIPPING_API_LEVEL := 29
+PRODUCT_SHIPPING_API_LEVEL := 30
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
