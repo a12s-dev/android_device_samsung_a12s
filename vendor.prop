@@ -2,3 +2,6 @@
 ro.radio.noril=no
 ro.vendor.multisim.simslotcount=2
 persist.radio.multisim.config=dsds
+
+## Fingerprint
+ro.vendor.fingerprint.type=side
