@@ -55,6 +55,9 @@ PRODUCT_PACKAGES += \
     vendor.samsung.hardware.security.vaultkeeper@2.0-service \
     vendor.samsung.hardware.security.vaultkeeper@2.0
 
+# Bring-up only (rom29): software KeyMint until the TEE keymaster works.
+PRODUCT_PACKAGES += android.hardware.security.keymint-service.nonsecure
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 
