@@ -11,6 +11,3 @@ persist.vendor.recovery_update=true
 
 ## Bluetooth name
 bluetooth.device.default_name=Galaxy A12
-
-## Display: blur is too expensive for this SoC, keep it off
-ro.surface_flinger.supports_background_blur=0

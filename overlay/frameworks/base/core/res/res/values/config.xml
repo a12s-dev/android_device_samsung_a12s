@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Blur is too expensive for this SoC and is the main UI jank source. -->
-    <bool name="config_supportsBlur">false</bool>
-</resources>
