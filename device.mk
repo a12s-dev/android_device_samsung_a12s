@@ -68,6 +68,11 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/cass.rc:$(TARGET_COPY_OUT
 # crash-looping. See configs/init/init.a12s.keymaster.rc.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.keymaster.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.keymaster.rc
 
+# ADDENDUM 6: a12s powerhint so INTERACTION (touch) boosts CPU + MIF like the
+# stock touch booster (CPU 1157000, MIF 1014000), which a21s-common omits.
+# Must precede the a21s-common inherit so this file wins.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 
