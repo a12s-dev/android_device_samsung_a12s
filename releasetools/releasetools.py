@@ -88,7 +88,7 @@ def OTA_InstallBegin(info):
   info.script.Print("")
   info.script.Print("LineageOS %s" % (ver,))
   info.script.Print("Samsung Galaxy A12 (a12s)")
-  info.script.Print("Built by varifocal  -  github.com/varifocal")
+  info.script.Print("Built by varifocal  -  github.com/a12s-dev")
   info.script.Print("Build date  %s" % (date,))
   info.script.Print("")
   info.script.Print("Installing LineageOS, do not power off...")
