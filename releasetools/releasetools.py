@@ -1,6 +1,6 @@
 #!/bin/env python3
 #
-# Copyright (C) 2020-2024 The LineageOS Project
+# Copyright (C) 2020-2026 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,21 @@
 import common
 import re
 
+BANNER = [
+    r"____   ____            .__  _____                    .__   ",
+    r"\   \ /   /____ _______|__|/ ____\____   ____ _____  |  |  ",
+    r" \   Y   /\__  \\_  __ \  \   __\/  _ \_/ ___\\__  \ |  |  ",
+    r"  \     /  / __ \|  | \/  ||  | (  <_> )  \___ / __ \|  |__",
+    r"   \___/  (____  /__|  |__||__|  \____/ \___  >____  /____/",
+    r"               \/                           \/     \/       ",
+]
+
 def FullOTA_Assertions(info):
   OTA_Assertions(info)
+  return
+
+def FullOTA_InstallBegin(info):
+  OTA_InstallBegin(info)
   return
 
 def FullOTA_InstallEnd(info):
@@ -27,6 +40,10 @@ def FullOTA_InstallEnd(info):
 
 def IncrementalOTA_Assertions(info):
   OTA_Assertions(info)
+  return
+
+def IncrementalOTA_InstallBegin(info):
+  OTA_InstallBegin(info)
   return
 
 def IncrementalOTA_InstallEnd(info):
@@ -39,8 +56,18 @@ def AddImage(info, basename, dest):
   common.ZipWriteStr(info.output_zip, name, data)
   info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
+def OTA_InstallBegin(info):
+  ver = info.info_dict.get("ro.lineage.version", "")
+  date = info.info_dict.get("ro.build.date", "")
+  for line in BANNER:
+    info.script.Print(line.replace("\\", "\\\\").replace('"', '\\"'))
+  info.script.Print("LineageOS %s for Samsung Galaxy A12 (a12s)" % (ver,))
+  info.script.Print("Built by varifocal")
+  info.script.Print("Build date %s" % (date,))
+  info.script.Print("")
+  return
+
 def OTA_Assertions(info):
-  # a12s: the a21s bootloader binary version assert does not apply here.
   return
 
 def PrintInfo(info, dest):

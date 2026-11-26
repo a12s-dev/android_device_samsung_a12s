@@ -43,8 +43,6 @@ PRODUCT_COPY_FILES += \
 
 # Bring-up only: fstab without /data encryption. Must precede the a21s-common
 # inherit so the first PRODUCT_COPY_FILES entry for each destination wins.
-# Bring-up only: teegris rc without the tzdaemon wait_for_prop (see report).
-PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/teegris_v4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/teegris_v4.rc
 PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos850 \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos850
