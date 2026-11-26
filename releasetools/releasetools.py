@@ -61,9 +61,13 @@ def OTA_InstallBegin(info):
   date = info.info_dict.get("ro.build.date", "")
   for line in BANNER:
     info.script.Print(line.replace("\\", "\\\\").replace('"', '\\"'))
-  info.script.Print("LineageOS %s for Samsung Galaxy A12 (a12s)" % (ver,))
-  info.script.Print("Built by varifocal")
-  info.script.Print("Build date %s" % (date,))
+  info.script.Print("")
+  info.script.Print("LineageOS %s" % (ver,))
+  info.script.Print("Samsung Galaxy A12 (a12s)")
+  info.script.Print("Built by varifocal  -  github.com/varifocal")
+  info.script.Print("Build date  %s" % (date,))
+  info.script.Print("")
+  info.script.Print("Installing LineageOS, do not power off...")
   info.script.Print("")
   return
 
@@ -78,4 +82,6 @@ def OTA_InstallEnd(info):
   AddImage(info, "dtbo.img", "/dev/block/by-name/dtbo")
   PrintInfo(info, "/dev/block/by-name/vbmeta")
   AddImage(info, "vbmeta.img", "/dev/block/by-name/vbmeta")
+  info.script.Print("")
+  info.script.Print("Installation complete, reboot to system.")
   return
