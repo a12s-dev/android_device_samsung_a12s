@@ -1,0 +1,15 @@
+# The Samsung TEE keymaster@4.0 HAL is deliberately excluded from the a12s
+# device manifest (see BoardConfig.mk) while we run software KeyMint
+# (android.hardware.security.keymint-service, declared as
+# android.hardware.security.keymint.IKeyMintDevice/default; keystore2 works).
+# But the service is class early_hal, so it auto-starts and then crash-loops:
+#   "Service android.hardware.keymaster@4.0::IKeymasterDevice/default must be
+#    in VINTF manifest in order to register/get" ->
+#   "Could not register service for Keymaster HAL" -> exited status 255.
+# Override it as disabled so class_start early_hal skips it.
+service vendor.keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.samsung
+    override
+    disabled
+    class early_hal
+    user system
+    group system drmrpc

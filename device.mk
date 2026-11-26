@@ -63,6 +63,11 @@ PRODUCT_PACKAGES += android.hardware.security.keymint-service
 # a21s-common inherit so this cass.rc wins over a21s-common's.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/cass.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/cass.rc
 
+# Bring-up only: keymaster@4.0 TEE HAL is excluded from the manifest while we
+# run software KeyMint; override its service as disabled so it stops
+# crash-looping. See configs/init/init.a12s.keymaster.rc.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.keymaster.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.keymaster.rc
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 
