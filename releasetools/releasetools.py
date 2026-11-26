@@ -56,19 +56,28 @@ def AddImage(info, basename, dest):
   common.ZipWriteStr(info.output_zip, name, data)
   info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
+PROP_FILES = (
+    "SYSTEM/build.prop",
+    "SYSTEM/etc/build.prop",
+    "RECOVERY/RAMDISK/prop.default",
+    "PRODUCT/build.prop",
+    "SYSTEM_EXT/build.prop",
+)
+
 def _getprop(info, key):
   import os
   for attr in ("input_tmp", "target_tmp", "source_tmp"):
     root = getattr(info, attr, None)
     if not root:
       continue
-    try:
-      with open(os.path.join(root, "SYSTEM", "build.prop")) as f:
-        for line in f:
-          if line.startswith(key + "="):
-            return line.split("=", 1)[1].strip()
-    except (IOError, OSError):
-      pass
+    for rel in PROP_FILES:
+      try:
+        with open(os.path.join(root, rel)) as f:
+          for line in f:
+            if line.startswith(key + "="):
+              return line.split("=", 1)[1].strip()
+      except (IOError, OSError):
+        pass
   return ""
 
 def OTA_InstallBegin(info):
