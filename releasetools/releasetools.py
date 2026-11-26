@@ -56,9 +56,24 @@ def AddImage(info, basename, dest):
   common.ZipWriteStr(info.output_zip, name, data)
   info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
+def _getprop(info, key):
+  import os
+  for attr in ("input_tmp", "target_tmp", "source_tmp"):
+    root = getattr(info, attr, None)
+    if not root:
+      continue
+    try:
+      with open(os.path.join(root, "SYSTEM", "build.prop")) as f:
+        for line in f:
+          if line.startswith(key + "="):
+            return line.split("=", 1)[1].strip()
+    except (IOError, OSError):
+      pass
+  return ""
+
 def OTA_InstallBegin(info):
-  ver = info.info_dict.get("ro.lineage.version", "")
-  date = info.info_dict.get("ro.build.date", "")
+  ver = _getprop(info, "ro.lineage.version")
+  date = _getprop(info, "ro.build.date")
   for line in BANNER:
     info.script.Print(line.replace("\\", "\\\\").replace('"', '\\"'))
   info.script.Print("")
