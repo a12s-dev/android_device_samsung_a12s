@@ -3,9 +3,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 //
-// Bring-up only: A12 TEE userspace that the a21s vendor does not ship, as
-// proper Soong prebuilts (PRODUCT_COPY_FILES rejects ELF files). Definition
-// mirrors the A12 vendor's Android.bp so shared_libs match the prebuilts.
+// A12 TEE userspace that the common vendor does not ship, built as proper
+// Soong prebuilts (PRODUCT_COPY_FILES rejects ELF files). Definition mirrors
+// the A12 vendor's Android.bp so shared_libs match the prebuilts.
 //
 
 cc_prebuilt_binary {

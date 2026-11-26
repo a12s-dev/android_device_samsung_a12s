@@ -14,16 +14,13 @@
 # limitations under the License.
 
 ## Inherit from the common tree
-include device/samsung/a21s-common/BoardConfigCommon.mk
-
-## Inherit from the proprietary configuration
-include vendor/samsung/a21s/BoardConfigVendor.mk
+include device/samsung/a12s-common/BoardConfigCommon.mk
 
 DEVICE_PATH := device/samsung/a12s
 
 ## Bring-up only (rom29): drop the TEE keymaster 4.0 HAL from the device manifest
 ## and use our own manifest that omits it, while we run software KeyMint.
-DEVICE_MANIFEST_FILE := $(filter-out device/samsung/a21s-common/manifest.xml,$(DEVICE_MANIFEST_FILE)) $(DEVICE_PATH)/configs/vintf/manifest.xml
+DEVICE_MANIFEST_FILE := $(filter-out device/samsung/a12s-common/manifest.xml,$(DEVICE_MANIFEST_FILE)) $(DEVICE_PATH)/configs/vintf/manifest.xml
 
 ## OTA TARGET
 TARGET_OTA_ASSERT_DEVICE := a12s

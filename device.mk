@@ -63,17 +63,15 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/power/powerhint.json:$(TARGET_
 # Device overlays, before the common inherit so they win.
 DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
 
-$(call inherit-product, device/samsung/a21s-common/common.mk)
+$(call inherit-product, device/samsung/a12s-common/common.mk)
 
 
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # NFC
-# The A12 (SM-A127F) has no NFC hardware. The a21s device tree enables NFC
-# through configs/nfc and the a21s device vendor makefile
-# (vendor/samsung/a21s/a21s-vendor.mk) installs NFC firmware only, so neither
-# is inherited for a12s.
+# The A12 (SM-A127F) has no NFC hardware, so the NFC packages and firmware
+# installed by the common tree are not wanted here.
 
 # Fingerprint device permissions and the biometrics data directory.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc

@@ -1,4 +1,4 @@
 # Proprietary files - from Samsung package version A127FXXSDDXJ5, unless pinned
 
 # The A12 (SM-A127F) has no NFC. Every remaining proprietary file is provided
-# by the shared a21s-common tree, so there are no a12s-only entries here.
+# by the shared a12s-common tree, so there are no a12s-only entries here.
