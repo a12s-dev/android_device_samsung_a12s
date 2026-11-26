@@ -46,3 +46,6 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 ## Bring-up only: forced permissive SELinux, still needed to capture logs.
 ## Remove this (and go enforcing) once bring-up is confirmed.
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
+# Device vendor sepolicy
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
