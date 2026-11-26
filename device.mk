@@ -15,7 +15,7 @@
 #
 
 # Inherit from the common tree
-# Bring-up only: A12 TEE userspace from the A12 vendor, above the inherits so these win.
+# A12 TEE userspace, installed before the common tree so these win.
 PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/teegris.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/teegris.rc \
     device/samsung/a12s/configs/init/vaultkeeper_common.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vaultkeeper_common.rc \
@@ -41,28 +41,23 @@ PRODUCT_COPY_FILES += \
     device/samsung/a12s/tee/tee/driver/00000000-0000-0000-0000-564c544b4456:$(TARGET_COPY_OUT_VENDOR)/tee/driver/00000000-0000-0000-0000-564c544b4456 \
     device/samsung/a12s/tee/tee/tui/resolution_common/ID00000100:$(TARGET_COPY_OUT_VENDOR)/tee/tui/resolution_common/ID00000100
 
-# Bring-up only: fstab without /data encryption. Must precede the a21s-common
-# inherit so the first PRODUCT_COPY_FILES entry for each destination wins.
+# fstab with the erofs alternatives, installed before the common tree so it wins.
 PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos850 \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos850
 
-# Bring-up only (rom29): software KeyMint until the TEE keymaster works.
+# Software KeyMint until the TEE keymaster works.
 PRODUCT_PACKAGES += android.hardware.security.keymint-service
 
-# Bring-up only (rom36c): disable cass (VaultKeeper TA needs the absent PA
-# component, see configs/init/vaultkeeper_common.rc). Must precede the
-# a21s-common inherit so this cass.rc wins over a21s-common's.
+# Disable cass: the VaultKeeper TA needs the absent PA component.
+# Installed before the common tree so this cass.rc wins.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/cass.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/cass.rc
 
-# Bring-up only: keymaster@4.0 TEE HAL is excluded from the manifest while we
-# run software KeyMint; override its service as disabled so it stops
-# crash-looping. See configs/init/init.a12s.keymaster.rc.
+# keymaster@4.0 is excluded from the manifest while software KeyMint runs;
+# keep its service disabled so it does not crash-loop.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.keymaster.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.keymaster.rc
 
-# ADDENDUM 6: a12s powerhint so INTERACTION (touch) boosts CPU + MIF like the
-# stock touch booster (CPU 1157000, MIF 1014000), which a21s-common omits.
-# Must precede the a21s-common inherit so this file wins.
+# Touch INTERACTION boosts CPU and MIF like the stock touch booster.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # Device overlays, before the common inherit so they win.
@@ -82,7 +77,5 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # Fingerprint device permissions and the biometrics data directory.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc
-
-# Bring-up only: periodic log dumper script.
 
 #
