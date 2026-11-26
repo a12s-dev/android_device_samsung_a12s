@@ -67,6 +67,9 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.keymaster.rc:$(
 # Must precede the a21s-common inherit so this file wins.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
+# Device overlays, before the common inherit so they win.
+DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
+
 $(call inherit-product, device/samsung/a21s-common/common.mk)
 
 
@@ -84,6 +87,4 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.rc:$(TARGET_COP
 
 # Bring-up only: periodic log dumper script.
 
-## Device overlays (win over a21s-common for user-visible values)
-DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
-
+#
