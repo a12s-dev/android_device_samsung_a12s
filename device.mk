@@ -57,9 +57,6 @@ PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/cass.rc:$(TARGET_COPY_OUT
 # keep its service disabled so it does not crash-loop.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.keymaster.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.keymaster.rc
 
-# Touch INTERACTION boosts CPU and MIF like the stock touch booster.
-PRODUCT_COPY_FILES += device/samsung/a12s/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
-
 # Device overlays, before the common inherit so they win.
 DEVICE_PACKAGE_OVERLAYS += device/samsung/a12s/overlay
 
