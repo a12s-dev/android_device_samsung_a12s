@@ -1,0 +1,7 @@
+# Radio property sets from the vendor domains.
+allow cbd vendor_radio_prop:property_service set;
+allow vendor_init vendor_radio_prop:property_service set;
+allow vendor_init recovery_update_prop:property_service set;
+
+# vendor_init reads the cp debug efs symlink during boot.
+allow vendor_init cpdebug_efs_file:lnk_file read;
