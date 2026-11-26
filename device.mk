@@ -18,7 +18,6 @@
 # Bring-up only: A12 TEE userspace from the A12 vendor, above the inherits so these win.
 PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/teegris.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/teegris.rc \
-    device/samsung/a12s/configs/init/pa_daemon_teegris.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/pa_daemon_teegris.rc \
     device/samsung/a12s/configs/init/vaultkeeper_common.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vaultkeeper_common.rc \
     device/samsung/a12s/tee/tee/00000000-0000-0000-0000-564c544b5052:$(TARGET_COPY_OUT_VENDOR)/tee/00000000-0000-0000-0000-564c544b5052 \
     device/samsung/a12s/tee/tee/00000000-0000-0000-0000-474154454b45:$(TARGET_COPY_OUT_VENDOR)/tee/00000000-0000-0000-0000-474154454b45 \
@@ -50,11 +49,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos850 \
     device/samsung/a12s/configs/init/fstab.exynos850:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos850
 
-PRODUCT_PACKAGES += \
-    vendor.samsung.hardware.security.proca@2.0-service \
-    vendor.samsung.hardware.security.vaultkeeper@2.0-service \
-    vendor.samsung.hardware.security.vaultkeeper@2.0
-
 # Bring-up only (rom29): software KeyMint until the TEE keymaster works.
 PRODUCT_PACKAGES += android.hardware.security.keymint-service
 
@@ -85,8 +79,8 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 # (vendor/samsung/a21s/a21s-vendor.mk) installs NFC firmware only, so neither
 # is inherited for a12s.
 
-# Bring-up only (rom22): write kernel/Android logs to /cache for recovery pull.
-PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.bringup.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.bringup.rc
+# Fingerprint device permissions and the biometrics data directory.
+PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc
 
 # Bring-up only: periodic log dumper script.
 
