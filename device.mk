@@ -66,10 +66,6 @@ $(call inherit-product, device/samsung/a12s-common/common.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
-# NFC
-# The A12 (SM-A127F) has no NFC hardware, so the NFC packages and firmware
-# installed by the common tree are not wanted here.
-
 # Fingerprint device permissions and the biometrics data directory.
 PRODUCT_COPY_FILES += device/samsung/a12s/configs/init/init.a12s.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a12s.rc
 
