@@ -96,6 +96,11 @@ def OTA_InstallBegin(info):
   return
 
 def OTA_Assertions(info):
+  cmd = (
+      'assert(exynos850.verify_bootloader_min("") == "1" || '
+      'abort("ERROR: This build requires the A12 bootloader with binary version D (A127FXXSDDXJ5) or newer. Please update your firmware."););'
+  )
+  info.script.AppendExtra(cmd)
   return
 
 def PrintInfo(info, dest):
